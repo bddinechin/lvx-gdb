@@ -1,0 +1,147 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Overview
+
+This is a full **binutils-gdb monorepo** checkout (GDB 13.1, BFD 2.39.50) that
+already contains Kalray's complete **KVX** target port (bfd, opcodes, gas, ld,
+binutils, gdb, gdbserver). It is currently unmodified from the upstream KVX
+tree — e.g. `gdb/kvx-tdep.c` here is byte-identical to
+`/home/bd3/Work2/kvx-csw/gdb/gdb/kvx-tdep.c`.
+
+**No `lvx-*` files exist anywhere in this tree yet.** This repo is the
+starting point for porting GDB (and gdbserver) support down to the LVX
+target, per the plan described in the parent project's
+`/home/bd3/LVX/CLAUDE.md`. That file documents the overall LVX architecture,
+the KV4→LVX simplification, the ABI, and the Machine Description System
+(MDS) — read it first for architectural background before porting anything
+here. The instructions below are specific to this GDB source tree.
+
+## Relationship to sibling repos
+
+- `/home/bd3/LVX/lvx-binutils/` already has real LVX target support for
+  gas/ld/bfd/opcodes/binutils (`lvx-mbr` target, MDS-generated opcode table,
+  etc.). **This repo's own `bfd/`, `opcodes/`, `gas/`, `ld/`, `binutils/`
+  directories are still on unmodified KVX** — they exist only because GDB's
+  build historically requires those subdirectories to be present alongside
+  `gdb/` in the same source tree (BFD/opcodes provide the architecture and
+  disassembler that GDB links against).
+- The actual LVX cross-toolchain (as-built binaries) comes from
+  `lvx-binutils` and `lvx-gcc`, not from this repo. When porting LVX support
+  into this tree's `bfd/`/`opcodes`/etc., mirror or copy from
+  `lvx-binutils` rather than re-deriving it independently, to avoid the two
+  copies diverging.
+- `/home/bd3/Work2/kvx-csw/gdb/` is the pristine KVX reference tree. Since
+  this repo starts as an exact copy of it, use `diff` against that path to
+  see exactly what you've changed as the LVX port progresses.
+
+## MDS-generated files
+
+Per the MDS pipeline described in the parent CLAUDE.md, some KVX gdb files
+are machine-generated, not hand-written:
+
+| File | Notes |
+|------|-------|
+| `gdb/kvx-mds-tdep.c` | Header comment: "Generated target-description for kvx". Register/pseudo-register descriptions, dwarf↔gdb register number mapping. |
+| `gdb/kvx-mds-wrap-tdep.c` / `.h` | Generated pseudo-register wrapping (`kvx_pseudo_wrap_register_name`, etc.). |
+
+Generator sources for these live at
+`/home/bd3/Work2/kvx-csw/mds/MDS/BE/GDB/BIN/` (`Registers.rb`,
+`RegisterInfo.rb`, `GDBTargeting.rb`, `target-regs.pl`). **The LVX MDS does
+not exist yet.** Until it does, LVX equivalents of these files must be
+hand-adapted like the other pre-MDS files listed in the parent CLAUDE.md —
+expect them to be regenerated and to overwrite hand edits once the LVX MDS
+GDB backend is built.
+
+## KVX-specific files to port
+
+### `gdb/` — core debugger target support
+
+| File | Role |
+|------|------|
+| `kvx-tdep.c` | Core `gdbarch` target-dependent code (register layout, prologue analysis, calling convention, frame unwinding). |
+| `kvx-common-tdep.c` / `.h` | Helpers shared between the Linux and bare-metal (MBR) tdep variants. |
+| `kvx-linux-tdep.c` | Linux OS-ABI hooks (core file / ptrace regset support, `solib-svr4`). |
+| `kvx-linux-nat.c` / `.h` | Native (`ptrace`-based) Linux process debugging. |
+| `kvx-mds-tdep.c`, `kvx-mds-wrap-tdep.c` / `.h` | MDS-generated register descriptions (see above). |
+| `kvx-target.c` / `.h` | `target_ops` implementation for connecting to the KVX simulator/ISS. |
+| `kvx-host-attach.c` / `.h`, `kvx-attach.c` / `.h` | Attach-to-running-process / breakpoint bookkeeping for host-attach debugging. |
+| `kvx-exception-info.c` / `.h` | Decodes and prints hardware trap/exception state (`ES` register fields, SFR names). |
+| `kvx-dump-tlb.c` / `.h` | `dump-tlb` / `lookup-addr` maintenance commands for inspecting the MMU TLB. |
+| `kvx-rv-debug.c` / `.h` | Hardware watchpoint/debug-register ("RA"/replay) support hooked into GDB's stop and objfile-load events. |
+| `solib-kvx-bare.c` / `.h` | Shared-library/ELF-loading support for the bare-metal (MBR) runtime (no dynamic linker). |
+| `regformats/reg-kvx.dat` | Register format description consumed by gdbserver's regcache generation. |
+| `features/kvx-linux.xml`, `kvx-linux-core.xml`, `kvx-linux.c` | Target-description XML (and its generated C form) for Linux ptrace/core register sets. |
+
+### `gdbserver/`
+
+| File | Role |
+|------|------|
+| `linux-kvx-low.cc` | gdbserver's Linux/KVX low-level target backend (register access via ptrace). |
+
+### Wiring files (non-target-specific, edited in place rather than renamed)
+
+- `gdb/configure.tgt` — maps `kvx*-*-linux*` / `kvx-*-*` triples to the object
+  list above (`gdb_target_obs`); a `lvx-*-*` (bare/MBR) stanza needs to be
+  added analogously.
+- `gdbserver/configure.srv` — maps `kvx-*-linux*` to `reg-kvx.o` /
+  `linux-kvx-low.o`.
+- `bfd/config.bfd`, `ld/configure.tgt` — target-triple dispatch for BFD and
+  the linker (already has LVX equivalents in `lvx-binutils`; this repo's
+  copies are still KVX-only, see "Relationship to sibling repos" above).
+
+## Testing infrastructure (KVX)
+
+- `gdb/testsuite/gdb.kalray/abi/` — KVX ABI-specific GDB test suite
+  (`kvx-abi.exp`, plus TLB dump, BCU, and displaced-stepping tests).
+- `gdb/testsuite/boards/kvx-iss-elf.exp`, `kvx-iss-cos.exp`,
+  `kvx-jtag-runner-*.exp` — DejaGnu board files describing how to launch
+  tests against the KVX ISS or JTAG hardware runners.
+- `binutils/testsuite/binutils-all/kvx/kvx.exp`,
+  `ld/testsuite/ld-kvx/kvx-elf.exp` — exist in this tree but belong to the
+  KVX-only bfd/binutils/ld copies (see above); the real LVX versions live in
+  `lvx-binutils`.
+
+## Building
+
+An existing out-of-tree KVX build directory, `kvx_build_gdb_x86/`, shows how
+this tree was last configured (from `config.status`):
+
+```
+../configure --target=kvx-mbr \
+  --enable-targets=kvx-mbr,riscv,x86_64-pc-linux-gnu \
+  --program-prefix=kvx- \
+  --disable-werror --without-gnu-as --without-gnu-ld \
+  --with-python=python3 --with-expat=yes \
+  --enable-threading=no --with-babeltrace=no --with-bugurl=no \
+  --enable-unit-tests=no --enable-tui=yes \
+  --prefix=<install-dir>
+```
+
+Note `--without-gnu-as`/`--without-gnu-ld`: this build only produces
+`kvx-mbr-gdb`/`kvx-mbr-gdbserver`, not an assembler or linker (those come
+from the sibling `lvx-binutils` build). No `lvx-*-build` directory exists
+yet; once LVX target support is wired into `gdb/configure.tgt` (and, for the
+`bfd`/`opcodes` copies here, ported from `lvx-binutils`), the equivalent
+invocation should follow the `lvx-mbr` target triple and prefix convention
+used by the sibling repos (see `/home/bd3/LVX/CLAUDE.md`).
+
+To build gdb only (once configured):
+
+```bash
+cd kvx_build_gdb_x86   # or the future lvx build dir
+make -j$(nproc) all-gdb
+make -j$(nproc) all-gdbserver   # if build_gdbserver=yes for the target
+```
+
+## Running tests
+
+```bash
+cd <build-dir>/gdb
+make check   # or: make check-gdb TESTS="gdb.kalray/abi/*.exp" for a subset
+```
+
+Tests require a working ISS or hardware runner board file (see
+`gdb/testsuite/boards/`); there is currently no LVX equivalent of
+`kvx-iss-elf.exp`.
