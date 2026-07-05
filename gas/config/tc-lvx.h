@@ -1,7 +1,7 @@
 /* tc-lvx.h -- Header file for tc-lvx.c
 
    Copyright (C) 2009-2024 Free Software Foundation, Inc.
-   Contributed by Kalray SA.
+   Contributed by Liesme Tech.
 
    This file is part of GAS.
 

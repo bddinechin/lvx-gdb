@@ -3,7 +3,7 @@
 /* LVX ELF IDs definitions.
 
    Copyright (C) 2009-2023 Free Software Foundation, Inc.
-   Contributed by Kalray SA.
+   Contributed by Liesme Tech.
 
    This file is part of GNU Binutils.
 

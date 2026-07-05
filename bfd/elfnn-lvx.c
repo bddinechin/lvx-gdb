@@ -1,6 +1,6 @@
 /* LVX-specific support for NN-bit ELF.
    Copyright (C) 2009-2024 Free Software Foundation, Inc.
-   Contributed by Kalray SA.
+   Contributed by Liesme Tech.
 
    This file is part of BFD, the Binary File Descriptor library.
 

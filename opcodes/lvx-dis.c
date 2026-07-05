@@ -1,6 +1,6 @@
 /* lvx-dis.c -- Kalray MPPA generic disassembler.
    Copyright (C) 2009-2023 Free Software Foundation, Inc.
-   Contributed by Kalray SA.
+   Contributed by Liesme Tech.
 
    This file is part of the GNU opcodes library.
 
