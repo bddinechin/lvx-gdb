@@ -102,7 +102,7 @@ write_gcore_file_1 (bfd *obfd)
   if (gcore_memory_sections (obfd) == 0)
     error (_("gcore: failed to get corefile memory sections from target."));
 
-  if (bfd_get_arch (obfd) == bfd_arch_kvx)
+  if (bfd_get_arch (obfd) == bfd_arch_lvx)
     {
       bfd *ebfd = current_program_space->exec_bfd ();
       elf_elfheader (obfd)->e_flags = elf_elfheader (ebfd)->e_flags;

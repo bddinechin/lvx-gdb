@@ -35,9 +35,29 @@
 #include "target-descriptions.h"
 #include "inferior.h"
 #include "gdbthread.h"
+#include "source.h"
+#include "gdbcmd.h"
 
 #include "lvx-common-tdep.h"
 #include "solib-lvx-bare.h"
+
+int
+lvx_is_mmu_enabled (struct gdbarch *gdbarch, struct regcache *regs)
+{
+  ULONGEST ps;
+  lvx_gdbarch_tdep *tdep;
+
+  if (gdbarch == NULL)
+    gdbarch = target_gdbarch ();
+
+  tdep = gdbarch_tdep<lvx_gdbarch_tdep> (gdbarch);
+
+  if (regs == NULL)
+    regs = get_current_regcache ();
+
+  regcache_raw_read_unsigned (regs, tdep->ps_regnum, &ps);
+  return (ps & (1 << PS_MME_BIT)) != 0;
+}
 
 static int
 lvx_register_reggroup_p (struct gdbarch *gdbarch, int regnum,
@@ -325,6 +345,7 @@ lvx_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
 					 lvx_adjust_breakpoint_address);
   set_gdbarch_print_insn (gdbarch, lvx_print_insn);
   set_gdbarch_max_insn_length (gdbarch, 8 * 4);
+  set_gdbarch_inner_than (gdbarch, core_addr_lessthan);
 
   set_gdbarch_get_longjmp_target (gdbarch, lvx_get_longjmp_target);
 

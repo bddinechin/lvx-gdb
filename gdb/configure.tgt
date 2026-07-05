@@ -356,7 +356,11 @@ kvx-*-*)
 	gdb_native=yes
 	;;
 
-lm32-*-*)		
+lvx-*-*)
+	gdb_target_obs="lvx-mds-tdep.o lvx-common-tdep.o lvx-tdep.o solib-lvx-bare.o"
+	;;
+
+lm32-*-*)
 	gdb_target_obs="lm32-tdep.o" 
 	;;
 
