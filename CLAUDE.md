@@ -13,14 +13,14 @@ tree — e.g. `gdb/kvx-tdep.c` here is byte-identical to
 **No `lvx-*` files exist anywhere in this tree yet.** This repo is the
 starting point for porting GDB (and gdbserver) support down to the LVX
 target, per the plan described in the parent project's
-`/home/bd3/LVX/CLAUDE.md`. That file documents the overall LVX architecture,
+`/home/bd3/lvx-csw/CLAUDE.md`. That file documents the overall LVX architecture,
 the KV4→LVX simplification, the ABI, and the Machine Description System
 (MDS) — read it first for architectural background before porting anything
 here. The instructions below are specific to this GDB source tree.
 
 ## Relationship to sibling repos
 
-- `/home/bd3/LVX/lvx-binutils/` already has real LVX target support for
+- `/home/bd3/lvx-csw/lvx-binutils/` already has real LVX target support for
   gas/ld/bfd/opcodes/binutils (`lvx-mbr` target, MDS-generated opcode table,
   etc.). **This repo's own `bfd/`, `opcodes/`, `gas/`, `ld/`, `binutils/`
   directories are still on unmodified KVX** — they exist only because GDB's
@@ -125,7 +125,7 @@ from the sibling `lvx-binutils` build). No `lvx-*-build` directory exists
 yet; once LVX target support is wired into `gdb/configure.tgt` (and, for the
 `bfd`/`opcodes` copies here, ported from `lvx-binutils`), the equivalent
 invocation should follow the `lvx-mbr` target triple and prefix convention
-used by the sibling repos (see `/home/bd3/LVX/CLAUDE.md`).
+used by the sibling repos (see `/home/bd3/lvx-csw/CLAUDE.md`).
 
 To build gdb only (once configured):
 
@@ -158,7 +158,7 @@ equivalent means solving all three, not just adding a `.exp` file.
 `lvx-mbr-ld` on `PATH`, since this tree is configured with
 `--without-gnu-as --without-gnu-ld` (gdb links against the sibling
 `lvx-binutils` build's assembler/linker rather than building its own).
-Those binaries come from `/home/bd3/LVX/lvx-toolchain/bin/`, installed
+Those binaries come from `/home/bd3/lvx-csw/lvx-toolchain/bin/`, installed
 via `make install` in `lvx-binutils-build/` -- reinstall from there
 first if the toolchain predates your latest `lvx-binutils` changes, or
 `check-binutils` will silently fail every test with "spawn failed".

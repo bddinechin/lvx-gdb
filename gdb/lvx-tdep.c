@@ -23,7 +23,7 @@
    protocol, corefile generation, TLS, COS inferior-startup sequencing) is
    intentionally not ported yet -- there is no LVX ISS or hardware, and no
    RISC-V dual-mode (KV4's "rv" bit) is assumed to exist for LVX. See
-   /home/bd3/LVX/lvx-gdb/CLAUDE.md and the porting plan for the full list of
+   /home/bd3/lvx-csw/lvx-gdb/CLAUDE.md and the porting plan for the full list of
    deferred KVX files. */
 
 #include "defs.h"

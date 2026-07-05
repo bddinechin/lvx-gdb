@@ -1,7 +1,7 @@
 /* Generated target-description for lvx */
 /* Hand-adapted from the KVX kv4-1 register table (LVX_1 is a simplification
    of kv4-1); this file follows the "MDS-generated, hand-adapted until the
-   LVX MDS exists" convention described in /home/bd3/LVX/CLAUDE.md and will
+   LVX MDS exists" convention described in /home/bd3/lvx-csw/CLAUDE.md and will
    be regenerated once the LVX MDS GDB backend is available. */
 #include "defs.h"
 
@@ -1124,7 +1124,7 @@ static int init_lvx_v1_dwarf2gdb(struct gdbarch *gdbarch)
 	return 1;
 }
 
-/* LVX_2 is not yet specified (see /home/bd3/LVX/CLAUDE.md); this is a
+/* LVX_2 is not yet specified (see /home/bd3/lvx-csw/CLAUDE.md); this is a
    placeholder copy of the LVX_1 register set until LVX_2 is defined. */
 static struct pseudo_desc lvx_v2_pseudo_regs[] = {
 	{ "r0r1", NULL, 128, 2, { -1, -1, }, { "r0", "r1"}},
