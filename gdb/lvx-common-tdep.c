@@ -38,6 +38,7 @@ extern "C" {
 #include "opcodes/lvx-dis.h"
 }
 #include "lvx-common-tdep.h"
+#include "lvx-jmpbuf.h"
 
 #define __NR_BREAKPOINT_PL0 4050
 #define __NR_BREAKPOINT_JTAGISS 4054
@@ -1016,7 +1017,9 @@ lvx_return_value (struct gdbarch *gdbarch, struct value *func_type,
 int
 lvx_get_longjmp_target (frame_info_ptr frame, CORE_ADDR *pc)
 {
-  /* R0 point to the jmpbuf, and RA is at offset 0xA0 in the buf */
+  /* R0 points to the jmpbuf; RA is at LVX_JMPBUF_RA_OFFSET in the buf
+     (lvx-jmpbuf.h, generated from Convention-lvx-regular and shared with
+     newlib's setjmp.S). */
   gdb_byte buf[sizeof (uint64_t)];
   CORE_ADDR r0;
   struct gdbarch *gdbarch = get_frame_arch (frame);
@@ -1025,8 +1028,7 @@ lvx_get_longjmp_target (frame_info_ptr frame, CORE_ADDR *pc)
   get_frame_register (
     frame, user_reg_map_name_to_regnum (get_frame_arch (frame), "r0", -1), buf);
   r0 = extract_unsigned_integer (buf, sizeof (buf), byte_order);
-  // 0xA0 = offset of RA in the jmp_buf struct
-  if (target_read_memory (r0 + 0xA0, buf, sizeof (buf)))
+  if (target_read_memory (r0 + LVX_JMPBUF_RA_OFFSET, buf, sizeof (buf)))
     return 0;
 
   *pc = extract_unsigned_integer (buf, sizeof (buf), byte_order);
