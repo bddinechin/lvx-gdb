@@ -496,6 +496,7 @@ do
     kvx_elf32_vec)		 tb="$tb elf32-kvx.lo elfxx-kvx.lo elf32.lo $elf $ipa" ;;
     kvx_elf64_vec)		 tb="$tb elf64-kvx.lo elfxx-kvx.lo elf64.lo $elf $ipa" ;;
     kvx_elf64_linux_vec)	 tb="$tb elf64-kvx.lo elfxx-kvx.lo elf64.lo $elf $ipa" ;;
+    lvx_elf64_vec)		 tb="$tb elf64-lvx.lo elfxx-lvx.lo elf64.lo $elf $ipa"; target_size=64 ;;
     lm32_elf32_vec)		 tb="$tb elf32-lm32.lo elf32.lo $elf" ;;
     lm32_elf32_fdpic_vec)	 tb="$tb elf32-lm32.lo elf32.lo $elf" ;;
     loongarch_elf32_vec)	 tb="$tb elf32-loongarch.lo elfxx-loongarch.lo elf32.lo elf-ifunc.lo $elf" ;;

@@ -67,6 +67,7 @@ case ${cpu} in
   ip2k)			cpu_type=ip2k endian=big ;;
   iq2000)		cpu_type=iq2000 endian=big ;;
   kvx)			cpu_type=kvx endian=little ;;
+  lvx)			cpu_type=lvx endian=little ;;
   lm32)			cpu_type=lm32 ;;
   loongarch32)		cpu_type=loongarch arch=loongarch32;;
   loongarch64)		cpu_type=loongarch arch=loongarch64;;
@@ -282,6 +283,8 @@ case ${generic_target} in
   kvx-*-*)				fmt=elf ;;
   kvx-*-linux*)				fmt=elf em=linux ;;
 
+  lvx-*-*)				fmt=elf ;;
+
   lm32-*-*)				fmt=elf ;;
 
   loongarch*)				fmt=elf ;;
@@ -451,7 +454,7 @@ case ${generic_target} in
 esac
 
 case ${cpu_type} in
-  aarch64 | alpha | arm | csky | i386 | ia64 | kvx | microblaze | mips | ns32k | \
+  aarch64 | alpha | arm | csky | i386 | ia64 | kvx | lvx | microblaze | mips | ns32k | \
   or1k | or1knd | pdp11 | ppc | riscv | sh | sparc | z80 | z8k | loongarch)
     bfd_gas=yes
     ;;

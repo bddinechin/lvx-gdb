@@ -485,6 +485,9 @@ kvx-*-linux*)		targ_emul=elf64kvx_linux
 kvx-*-*)		targ_emul=elf64kvx; targ_extra_emuls="elf64kvx_linux elf32kvx"
 			;;
 
+lvx-*-*)		targ_emul=elf64lvx
+			;;
+
 m32c-*-elf)
 			targ_emul=elf32m32c
 			;;

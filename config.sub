@@ -1206,6 +1206,7 @@ case $cpu-$vendor in
 			| ip2k | iq2000 \
 			| k1om \
 			| kvx \
+			| lvx \
 			| le32 | le64 \
 			| lm32 \
 			| loongarch32 | loongarch64 | loongarchx32 \
