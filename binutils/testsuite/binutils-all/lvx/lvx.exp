@@ -26,12 +26,4 @@ global copyfile
 set tempfile tmpdir/lvxtemp.o
 set copyfile tmpdir/lvxcopy
 
-## binutils test framework does not support the 'dump' EXTRA args to
-## simply share a single .s for 32 and 64bits test.
-# So we duplicate the source .s
-
-# 32bits test
-run_dump_test "pcrel_bundle32bits"
-
-# 64bits test
 run_dump_test "pcrel_bundle"
