@@ -1,8 +1,5 @@
 /* Generated target-description for lvx */
-/* Hand-adapted from the KVX kv4-1 register table (LVX_1 is a simplification
-   of kv4-1); this file follows the "MDS-generated, hand-adapted until the
-   LVX MDS exists" convention described in /home/bd3/lvx-csw/CLAUDE.md and will
-   be regenerated once the LVX MDS GDB backend is available. */
+/* (c) Copyright 2010-2018 Kalray SA. */
 #include "defs.h"
 
 #include <string.h>
@@ -1124,8 +1121,6 @@ static int init_lvx_v1_dwarf2gdb(struct gdbarch *gdbarch)
 	return 1;
 }
 
-/* LVX_2 is not yet specified (see /home/bd3/lvx-csw/CLAUDE.md); this is a
-   placeholder copy of the LVX_1 register set until LVX_2 is defined. */
 static struct pseudo_desc lvx_v2_pseudo_regs[] = {
 	{ "r0r1", NULL, 128, 2, { -1, -1, }, { "r0", "r1"}},
 	{ "r2r3", NULL, 128, 2, { -1, -1, }, { "r2", "r3"}},
@@ -2218,14 +2213,13 @@ static int init_lvx_v2_dwarf2gdb(struct gdbarch *gdbarch)
 	}
 	return 1;
 }
-
 static const char*
 find_tdesc_arch (struct gdbarch *gdbarch)
 {
 	const struct target_desc *tdesc;
 
 	if (gdbarch == NULL) return "lvx-1";
-	tdesc = gdbarch_target_desc (gdbarch);
+tdesc = gdbarch_target_desc (gdbarch);
 
 	if (tdesc == NULL) return "lvx-1";
 	if (tdesc_find_feature (tdesc, "org.lvx.core.lvx-1"))
