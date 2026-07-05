@@ -139,12 +139,20 @@ make -j$(nproc) all-gdbserver   # if build_gdbserver=yes for the target
 
 ```bash
 cd <build-dir>/gdb
-make check   # or: make check-gdb TESTS="gdb.kalray/abi/*.exp" for a subset
+make check   # or: make check TESTS="gdb.kalray/abi/*.exp" for a subset
 ```
 
 Tests require a working ISS or hardware runner board file (see
 `gdb/testsuite/boards/`); there is currently no LVX equivalent of
 `kvx-iss-elf.exp`.
+
+`gdb.kalray/abi/kvx-abi.exp` specifically cannot run at all in this tree
+right now, for three independent reasons: it `load_lib`s `c-torture.exp`,
+a GCC testsuite library not present in this binutils-gdb-only monorepo
+(no `gcc/` dir); it's hard-gated `if { ![istarget kvx-*-*] }` so it would
+skip for `lvx-mbr` even if the library were found; and, per above, there's
+no LVX board file to run it against anyway. Porting an `lvx-abi.exp`
+equivalent means solving all three, not just adding a `.exp` file.
 
 `binutils/testsuite` (`make check-binutils`) needs a real `lvx-mbr-as`/
 `lvx-mbr-ld` on `PATH`, since this tree is configured with
