@@ -145,3 +145,12 @@ make check   # or: make check-gdb TESTS="gdb.kalray/abi/*.exp" for a subset
 Tests require a working ISS or hardware runner board file (see
 `gdb/testsuite/boards/`); there is currently no LVX equivalent of
 `kvx-iss-elf.exp`.
+
+`binutils/testsuite` (`make check-binutils`) needs a real `lvx-mbr-as`/
+`lvx-mbr-ld` on `PATH`, since this tree is configured with
+`--without-gnu-as --without-gnu-ld` (gdb links against the sibling
+`lvx-binutils` build's assembler/linker rather than building its own).
+Those binaries come from `/home/bd3/LVX/lvx-toolchain/bin/`, installed
+via `make install` in `lvx-binutils-build/` -- reinstall from there
+first if the toolchain predates your latest `lvx-binutils` changes, or
+`check-binutils` will silently fail every test with "spawn failed".
