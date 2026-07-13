@@ -1,1 +1,4 @@
-kvx_build_gdb_x86/
+# Out-of-tree build directories configured inside this tree (see CLAUDE.md,
+# "Building"). Matches any of them rather than naming one, so the LVX build
+# directory is covered when it appears.
+/*build*/
