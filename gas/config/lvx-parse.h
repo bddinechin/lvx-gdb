@@ -1,7 +1,7 @@
 /* lvx-parse.h -- Recursive decent parser tables for the LVX ISA
 
    Copyright (C) 2009-2024 Free Software Foundation, Inc.
-   Contributed by Kalray SA.
+   Contributed by Liesme Tech.
 
    This file is part of GAS.
 

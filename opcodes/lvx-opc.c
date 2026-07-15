@@ -1,6 +1,6 @@
 /* lvx-opc.c -- LVX opcode support.
    Copyright (C) 2009-2024 Free Software Foundation, Inc.
-   Contributed by Kalray SA.
+   Contributed by Liesme Tech.
 
    This file is part of the GNU opcodes library.
 

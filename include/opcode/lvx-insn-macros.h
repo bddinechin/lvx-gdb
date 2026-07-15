@@ -1,5 +1,5 @@
 /**
-*** (c) Copyright 2010-2018 Kalray SA.
+*** Copyright (C) 2026 Liesme Tech.
 
 ***
 *** This program is free software; you can redistribute it and/or
