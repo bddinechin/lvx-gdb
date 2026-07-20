@@ -600,6 +600,7 @@ decode_insn (bfd_vma memaddr, struct raw_insn *raw_insn, struct decoded_insn *re
 		      break;
 		    case Immediate_lvx_v1_brknumber:
 		    case Immediate_lvx_v1_sysnumber:
+		    case Immediate_lvx_v1_csrnumber:
 		    case Immediate_lvx_v1_signed10:
 		    case Immediate_lvx_v1_signed16:
 		    case Immediate_lvx_v1_signed27:
@@ -1147,6 +1148,7 @@ decode_prologue_epilogue_bundle (bfd_vma memaddr,
 	      /* Do nothing.  */
 	    }
 	  else if (   chk_type (lvx_v1, Immediate_lvx_v1_sysnumber)
+		   || chk_type (lvx_v1, Immediate_lvx_v1_csrnumber)
 		   || chk_type (lvx_v1, Immediate_lvx_v1_wrapped8)
 		   || chk_type (lvx_v1, Immediate_lvx_v1_signed10)
 		   || chk_type (lvx_v1, Immediate_lvx_v1_signed16)
