@@ -7535,6 +7535,114 @@ struct lvx_opc lvx_v1_optab[] = {
     },
     .fmtstring = "",
   },
+  { /* A_Opcode-lvx_v1-FRCSR_registerZ_simple */
+    .as_op = "frcsr",
+    .codewords = {
+      {
+        .opcode = 0x0fd000c0,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v1_BCU2,
+    .reservation = (int)Reservation_lvx_v1_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v1_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
+  { /* A_Opcode-lvx_v1-FRFLAGS_registerZ_simple */
+    .as_op = "frflags",
+    .codewords = {
+      {
+        .opcode = 0x0fd00040,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v1_BCU2,
+    .reservation = (int)Reservation_lvx_v1_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v1_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
+  { /* A_Opcode-lvx_v1-FRRM_registerZ_simple */
+    .as_op = "frrm",
+    .codewords = {
+      {
+        .opcode = 0x0fd00080,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v1_BCU2,
+    .reservation = (int)Reservation_lvx_v1_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v1_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
+  { /* A_Opcode-lvx_v1-FSCSR_registerZ_simple */
+    .as_op = "fscsr",
+    .codewords = {
+      {
+        .opcode = 0x0fcc00c0,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v1_BCU2,
+    .reservation = (int)Reservation_lvx_v1_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v1_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
+  { /* A_Opcode-lvx_v1-FSFLAGS_registerZ_simple */
+    .as_op = "fsflags",
+    .codewords = {
+      {
+        .opcode = 0x0fcc0040,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v1_BCU2,
+    .reservation = (int)Reservation_lvx_v1_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v1_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
+  { /* A_Opcode-lvx_v1-FSRM_registerZ_simple */
+    .as_op = "fsrm",
+    .codewords = {
+      {
+        .opcode = 0x0fcc0080,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v1_BCU2,
+    .reservation = (int)Reservation_lvx_v1_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v1_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
   { /* A_Opcode-lvx_v1-SXBD_registerW_registerZ_simple */
     .as_op = "sxbd",
     .codewords = {
@@ -27813,7 +27921,7 @@ struct lvx_opc lvx_v1_optab[] = {
     },
     .fmtstring = " %s = %s, %s",
   },
-/* Number of instructions: 873 */
+/* Number of instructions: 879 */
   {"", { }, 0, 0, 0, { }, ""}
 };
 
@@ -36200,6 +36308,114 @@ struct lvx_opc lvx_v2_optab[] = {
       NULL
     },
     .fmtstring = "",
+  },
+  { /* A_Opcode-lvx_v2-FRCSR_registerZ_simple */
+    .as_op = "frcsr",
+    .codewords = {
+      {
+        .opcode = 0x0fd000c0,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v2_BCU2,
+    .reservation = (int)Reservation_lvx_v2_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v2_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
+  { /* A_Opcode-lvx_v2-FRFLAGS_registerZ_simple */
+    .as_op = "frflags",
+    .codewords = {
+      {
+        .opcode = 0x0fd00040,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v2_BCU2,
+    .reservation = (int)Reservation_lvx_v2_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v2_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
+  { /* A_Opcode-lvx_v2-FRRM_registerZ_simple */
+    .as_op = "frrm",
+    .codewords = {
+      {
+        .opcode = 0x0fd00080,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v2_BCU2,
+    .reservation = (int)Reservation_lvx_v2_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v2_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
+  { /* A_Opcode-lvx_v2-FSCSR_registerZ_simple */
+    .as_op = "fscsr",
+    .codewords = {
+      {
+        .opcode = 0x0fcc00c0,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v2_BCU2,
+    .reservation = (int)Reservation_lvx_v2_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v2_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
+  { /* A_Opcode-lvx_v2-FSFLAGS_registerZ_simple */
+    .as_op = "fsflags",
+    .codewords = {
+      {
+        .opcode = 0x0fcc0040,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v2_BCU2,
+    .reservation = (int)Reservation_lvx_v2_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v2_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
+  },
+  { /* A_Opcode-lvx_v2-FSRM_registerZ_simple */
+    .as_op = "fsrm",
+    .codewords = {
+      {
+        .opcode = 0x0fcc0080,
+        .mask = 0x7fffffc0,
+        .flags = LVX_OPCODE_FLAG_MODE64
+      },
+    },
+    .wordcount = 1,
+    .bundling = (int)Bundling_lvx_v2_BCU2,
+    .reservation = (int)Reservation_lvx_v2_BCU2_TINY_LSU,
+    .format = {
+      &lvx_v2_registerz_opnd,
+      NULL
+    },
+    .fmtstring = " %s",
   },
   { /* A_Opcode-lvx_v2-SXBD_registerW_registerZ_simple */
     .as_op = "sxbd",
@@ -69667,7 +69883,7 @@ struct lvx_opc lvx_v2_optab[] = {
     },
     .fmtstring = " %s = %s, %s",
   },
-/* Number of instructions: 1456 */
+/* Number of instructions: 1462 */
   {"", { }, 0, 0, 0, { }, ""}
 };
 

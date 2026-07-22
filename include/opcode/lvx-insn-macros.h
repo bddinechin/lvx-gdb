@@ -4499,6 +4499,12 @@
 #define lvx_v1_MSBFSUWD_registerW_registerZ_registerY_simple_insn(registerW,registerZ,registerY) (unsigned)(0x6e02e000 | (unsigned)(((registerW) & 0x3f) << 18) | (unsigned)((registerZ) & 0x3f) | (unsigned)(((registerY) & 0x3f) << 6))
 #define lvx_v1_MSBFSUWD_registerW_registerZ_upper27_lower5_double_insn_0(registerW,registerZ,upper27_lower5) (unsigned)(0xee02e000 | (unsigned)(((registerW) & 0x3f) << 18) | (unsigned)((registerZ) & 0x3f) | (unsigned)(((upper27_lower5) & 0x1f) << 6))
 #define lvx_v1_MSBFSUWD_registerW_registerZ_upper27_lower5_double_insn_1(registerW,registerZ,upper27_lower5) (unsigned)((((upper27_lower5) >> 5) & 0x7ffffff))
+#define lvx_v1_FRCSR_registerZ_simple_insn(registerZ) (unsigned)(0x0fd000c0 | (unsigned)((registerZ) & 0x3f))
+#define lvx_v1_FSCSR_registerZ_simple_insn(registerZ) (unsigned)(0x0fcc00c0 | (unsigned)((registerZ) & 0x3f))
+#define lvx_v1_FRFLAGS_registerZ_simple_insn(registerZ) (unsigned)(0x0fd00040 | (unsigned)((registerZ) & 0x3f))
+#define lvx_v1_FSFLAGS_registerZ_simple_insn(registerZ) (unsigned)(0x0fcc0040 | (unsigned)((registerZ) & 0x3f))
+#define lvx_v1_FRRM_registerZ_simple_insn(registerZ) (unsigned)(0x0fd00080 | (unsigned)((registerZ) & 0x3f))
+#define lvx_v1_FSRM_registerZ_simple_insn(registerZ) (unsigned)(0x0fcc0080 | (unsigned)((registerZ) & 0x3f))
 #define lvx_v2_BREAK_brknumber_simple_insn(brknumber) (unsigned)(0x0ff40000 | (unsigned)((brknumber) & 0x3))
 #define lvx_v2_IGOTO_registerZ_simple_insn(registerZ) (unsigned)(0x0fe40000 | (unsigned)((registerZ) & 0x3f))
 #define lvx_v2_ICALL_registerZ_simple_insn(registerZ) (unsigned)(0x0fe80000 | (unsigned)((registerZ) & 0x3f))
@@ -11656,6 +11662,12 @@
 #define lvx_v2_MSBFSUWD_registerW_registerZ_registerY_simple_insn(registerW,registerZ,registerY) (unsigned)(0x6e02e000 | (unsigned)(((registerW) & 0x3f) << 18) | (unsigned)((registerZ) & 0x3f) | (unsigned)(((registerY) & 0x3f) << 6))
 #define lvx_v2_MSBFSUWD_registerW_registerZ_upper27_lower5_double_insn_0(registerW,registerZ,upper27_lower5) (unsigned)(0xee02e000 | (unsigned)(((registerW) & 0x3f) << 18) | (unsigned)((registerZ) & 0x3f) | (unsigned)(((upper27_lower5) & 0x1f) << 6))
 #define lvx_v2_MSBFSUWD_registerW_registerZ_upper27_lower5_double_insn_1(registerW,registerZ,upper27_lower5) (unsigned)((((upper27_lower5) >> 5) & 0x7ffffff))
+#define lvx_v2_FRCSR_registerZ_simple_insn(registerZ) (unsigned)(0x0fd000c0 | (unsigned)((registerZ) & 0x3f))
+#define lvx_v2_FSCSR_registerZ_simple_insn(registerZ) (unsigned)(0x0fcc00c0 | (unsigned)((registerZ) & 0x3f))
+#define lvx_v2_FRFLAGS_registerZ_simple_insn(registerZ) (unsigned)(0x0fd00040 | (unsigned)((registerZ) & 0x3f))
+#define lvx_v2_FSFLAGS_registerZ_simple_insn(registerZ) (unsigned)(0x0fcc0040 | (unsigned)((registerZ) & 0x3f))
+#define lvx_v2_FRRM_registerZ_simple_insn(registerZ) (unsigned)(0x0fd00080 | (unsigned)((registerZ) & 0x3f))
+#define lvx_v2_FSRM_registerZ_simple_insn(registerZ) (unsigned)(0x0fcc0080 | (unsigned)((registerZ) & 0x3f))
 
 #define LVX_DOUBLE_MASK 	0x80000000
 #define LVX_DOUBLE_VAL  	0x80000000
